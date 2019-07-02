@@ -2,7 +2,9 @@
   min-height: 100vh;
   width: 100%;
   background-color: #00d0a0;
-  padding: 15vh;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-bottom: 300px;
 
   &:nth-child(odd) {
     background-color: #000000;
