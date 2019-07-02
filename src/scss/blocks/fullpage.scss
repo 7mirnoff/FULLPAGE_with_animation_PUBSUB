@@ -1,0 +1,9 @@
+.fullpage {
+  &--init {
+    .fullpage__page {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}

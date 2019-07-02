@@ -1,0 +1,41 @@
+.fullpage__page {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #00d0a0;
+  padding: 15vh;
+
+  &:nth-child(odd) {
+    background-color: #000000;
+    color: #ffffff;
+  }
+}
+
+.fullpage__page-title {
+  position: relative;
+  margin: 0;
+  font-size: 80px;
+  padding-bottom: 30px;
+
+  span {
+    position: absolute;
+    left: -0.8em;
+  }
+}
+
+.fullpage__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fullpage__item {
+  display: inline-block;
+  vertical-align: top;
+  text-align: justify;
+  width: 30%;
+  font-size: 20px;
+  padding-top: 15px;
+  padding-bottom: 10vh;
+  padding-right: 20px;
+  line-height: 1.6;
+}

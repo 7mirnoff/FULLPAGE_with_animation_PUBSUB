@@ -13,6 +13,8 @@ body {
   min-width: 320px;
   margin: 0;
   padding: 0;
+  font-family: 'Josefin Sans', sans-serif;
+  line-height: 1.4;
 }
 
 .no-scroll {
@@ -44,8 +46,10 @@ a {
 }
 
 h1 {
-  text-align: center;
+  text-align: right;
+  padding-right: 10vh;
   color: red;
+  font-size: 55px;
 }
 
 @media(max-width: 768px) {
