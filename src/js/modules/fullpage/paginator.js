@@ -2,6 +2,7 @@ import PubSub from 'pubsub-js'
 
 const paginationLink = document.querySelectorAll(`.pagination__link`)
 const slides = document.querySelectorAll(`.fullpage__page`)
+
 export default class Paginator {
   constructor () {
     this.scrollEvents()
@@ -25,6 +26,9 @@ export default class Paginator {
       const newSlide = self.activeSlide + direction
 
       if (newSlide > self.maxLengthSlide || newSlide < 1) {
+        setTimeout(() => {
+          self.canGo = true
+        }, 1300)
         return
       }
 
