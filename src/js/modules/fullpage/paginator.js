@@ -1,15 +1,12 @@
 import PubSub from 'pubsub-js'
 
-const paginationLink = document.querySelectorAll(`.pagination__link`)
-const slides = document.querySelectorAll(`.fullpage__page`)
-
 export default class Paginator {
   constructor () {
     this.scrollEvents()
-    this.clickEvents()
+    this.moveEvents()
     this.activeSlide = 1
     this.canGo = true
-    this.maxLengthSlide = slides.length
+    this.maxLengthSlide = 5
   }
 
   scrollEvents () {
@@ -41,18 +38,52 @@ export default class Paginator {
     })
   }
 
-  clickEvents () {
+  moveEvents () {
     const self = this
-    paginationLink.forEach((linkItem, indexItem) => {
-      linkItem.addEventListener(`click`, (evt) => {
-        evt.preventDefault()
 
-        let newSlide = indexItem + 1
-        if (newSlide !== self.activeSlide) {
-          PubSub.publish(`goToSlide`, {from: self.activeSlide, to: newSlide})
-          self.activeSlide = newSlide
-        }
-      })
+    let lastY;
+    let directionCurrent = 0
+    let currentY = 0
+
+    const getdirection = (evt) => {
+      lastY = evt.changedTouches[0].clientY
+      if(currentY - 2 > lastY){
+        return -1
+      } else if(currentY + 2 < lastY){
+        return 1
+      }
+      currentY = lastY;
+    }
+
+    window.addEventListener(`touchstart`, (evt) => {
+      currentY = evt.touches[0].clientY;
+    })
+
+
+    window.addEventListener(`touchend`, (evt) => {
+      if (!self.canGo) {
+        return
+      }
+      directionCurrent = getdirection(evt)
+      self.canGo = false
+
+      const direction = directionCurrent > 0 ? 1 : -1
+
+      const newSlide = self.activeSlide + direction
+
+      if (newSlide > self.maxLengthSlide || newSlide < 1) {
+        setTimeout(() => {
+          self.canGo = true
+        }, 1300)
+        return
+      }
+
+      PubSub.publish(`goToSlide`, {from: self.activeSlide, to: newSlide})
+      self.activeSlide = newSlide
+
+      setTimeout(() => {
+        self.canGo = true
+      }, 1300)
     })
   }
 }
