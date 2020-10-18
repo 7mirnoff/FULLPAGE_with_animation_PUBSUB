@@ -12,7 +12,7 @@ export default class Paginator {
   scrollEvents () {
     const self = this
 
-    window.addEventListener(`wheel`, (evt) => {
+    window.addEventListener('wheel', (evt) => {
       if (!self.canGo) {
         return
       }
@@ -29,7 +29,7 @@ export default class Paginator {
         return
       }
 
-      PubSub.publish(`goToSlide`, {from: self.activeSlide, to: newSlide})
+      PubSub.publish('goToSlide', { from: self.activeSlide, to: newSlide })
       self.activeSlide = newSlide
 
       setTimeout(() => {
@@ -41,26 +41,25 @@ export default class Paginator {
   moveEvents () {
     const self = this
 
-    let lastY;
+    let lastY
     let directionCurrent = 0
     let currentY = 0
 
     const getdirection = (evt) => {
       lastY = evt.changedTouches[0].clientY
-      if(currentY - 2 > lastY){
+      if (currentY - 2 > lastY) {
         return -1
-      } else if(currentY + 2 < lastY){
+      } else if (currentY + 2 < lastY) {
         return 1
       }
-      currentY = lastY;
+      currentY = lastY
     }
 
-    window.addEventListener(`touchstart`, (evt) => {
-      currentY = evt.touches[0].clientY;
+    window.addEventListener('touchstart', (evt) => {
+      currentY = evt.touches[0].clientY
     })
 
-
-    window.addEventListener(`touchend`, (evt) => {
+    window.addEventListener('touchend', (evt) => {
       if (!self.canGo) {
         return
       }
@@ -78,7 +77,7 @@ export default class Paginator {
         return
       }
 
-      PubSub.publish(`goToSlide`, {from: self.activeSlide, to: newSlide})
+      PubSub.publish('goToSlide', { from: self.activeSlide, to: newSlide })
       self.activeSlide = newSlide
 
       setTimeout(() => {
