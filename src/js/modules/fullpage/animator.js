@@ -2,7 +2,8 @@ import PubSub from 'pubsub-js'
 
 const fullpageContainer = document.querySelector('.fullpage')
 
-PubSub.subscribe(`goToSlide`, (massage, data) => {
-  fullpageContainer.classList.remove(`fullpage--${data.from}`)
-  fullpageContainer.classList.add(`fullpage--${data.to}`)
+PubSub.subscribe('goToSlide', (massage, data) => {
+  const { from, to } = data
+  fullpageContainer.classList.remove(`fullpage--${from}`)
+  fullpageContainer.classList.add(`fullpage--${to}`)
 })
