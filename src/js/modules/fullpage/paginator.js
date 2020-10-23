@@ -1,5 +1,7 @@
 import PubSub from 'pubsub-js'
 
+const TIME = 1300
+
 export default class Paginator {
   constructor () {
     this.scrollEvents()
@@ -12,10 +14,9 @@ export default class Paginator {
   scrollEvents () {
     const self = this
 
-    window.addEventListener('wheel', (evt) => {
-      if (!self.canGo) {
-        return
-      }
+    window.addEventListener('wheel', evt => {
+      if (!self.canGo) return
+
       self.canGo = false
 
       const direction = evt.deltaY > 0 ? 1 : -1
@@ -25,7 +26,7 @@ export default class Paginator {
       if (newSlide > self.maxLengthSlide || newSlide < 1) {
         setTimeout(() => {
           self.canGo = true
-        }, 1300)
+        }, TIME)
         return
       }
 
@@ -34,7 +35,7 @@ export default class Paginator {
 
       setTimeout(() => {
         self.canGo = true
-      }, 1300)
+      }, TIME)
     })
   }
 
@@ -45,7 +46,7 @@ export default class Paginator {
     let directionCurrent = 0
     let currentY = 0
 
-    const getdirection = (evt) => {
+    const getdirection = evt => {
       lastY = evt.changedTouches[0].clientY
       if (currentY - 2 > lastY) {
         return -1
@@ -55,14 +56,13 @@ export default class Paginator {
       currentY = lastY
     }
 
-    window.addEventListener('touchstart', (evt) => {
+    window.addEventListener('touchstart', evt => {
       currentY = evt.touches[0].clientY
     })
 
-    window.addEventListener('touchend', (evt) => {
-      if (!self.canGo) {
-        return
-      }
+    window.addEventListener('touchend', evt => {
+      if (!self.canGo) return
+
       directionCurrent = getdirection(evt)
       self.canGo = false
 
@@ -73,7 +73,7 @@ export default class Paginator {
       if (newSlide > self.maxLengthSlide || newSlide < 1) {
         setTimeout(() => {
           self.canGo = true
-        }, 1300)
+        }, TIME)
         return
       }
 
@@ -82,7 +82,7 @@ export default class Paginator {
 
       setTimeout(() => {
         self.canGo = true
-      }, 1300)
+      }, TIME)
     })
   }
 }
